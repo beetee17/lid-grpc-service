@@ -12,15 +12,20 @@ git clone https://github.com/beetee17/lid-grpc-service.git
 
 ### 2. Download the weights
 
-Please download the zip file containing the weights and other files with the link. (https://drive.google.com/file/d/12SSXquUX3hMeEWnUARaTQEHD7cD1DF4k/view?usp=drive_link). Unzip and place it in the `weights` folder. Directory should look like:
+Please download the model files from the [huggingface repository](https://huggingface.co/distil-whisper/distil-large-v3#faster-whisper). You should rename the contents such that the directory looks like:
 
 ```sh
-lid-grpc-service
+ctranslate_deploy
 |-- weights
-|    |-- config.json
-|    |-- model.bin
-|    |-- tokenizer.json
-|    |-- vocabulary.json
+|    |-- blobs
+|    |-- refs
+|    |-- snapshots
+|    |    |-- model
+|    |    |    |-- config.json
+|    |    |    |-- model.bin
+|    |    |    |-- preprocessor_config.json
+|    |    |    |-- tokenizer.json
+|    |    |    |-- vocabulary.json
 |-- proto
 |-- src
 |-- tests

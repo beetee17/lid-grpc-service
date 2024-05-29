@@ -12,7 +12,7 @@ import grpc
 
 from proto import lid_pb2, lid_pb2_grpc
 
-MODEL_DIR = os.environ["MODEL_DIR"]
+MODEL_DIR = os.environ["MODEL_DIR"] + "/snapshots/model/"
 DEVICE = "cuda"  # cuda or cpu
 COMPUTE_TYPE = "float16"
 

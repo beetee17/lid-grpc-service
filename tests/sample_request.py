@@ -5,7 +5,6 @@ import io
 import time
 import logging
 import librosa
-import numpy as np
 import soundfile as sf
 
 import grpc
@@ -17,7 +16,7 @@ PORT = 40053
 
 AUDIO_FILEPATH = "examples/test_audio.wav"
 SAMPLE_RATE = 16000
-CHUNK_DURATION = 1.0
+CHUNK_DURATION = 0.5
 
 def stream_audio(
     stub: lid_pb2_grpc.LanguageIdentifierStub, 
