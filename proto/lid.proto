@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service LanguageIdentifier {
+    rpc identify_language(LanguageIdentificationRequest) returns (LanguageIdentificationResponse) {}
+}
+
+message LanguageIdentificationRequest {
+    bytes audio_data = 1;
+}
+
+message LanguageIdentificationResponse {
+    string language_code = 1;
+    float confidence = 2;
+}

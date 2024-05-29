@@ -1,0 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cu118
+
+pip==24.0
+wheel==0.42.0
+Cython==3.0.6
+faster-whisper==0.10.1
+
+# grpc tools
+grpcio==1.62.1
+grpcio-tools==1.62.1

@@ -1,0 +1,7 @@
+grpcio==1.64.0
+grpcio-tools==1.62.1
+
+librosa==0.10.2.post1
+numpy==1.26.4
+PyAudio==0.2.14
+soundfile==0.12.1
