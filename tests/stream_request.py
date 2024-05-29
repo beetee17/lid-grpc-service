@@ -9,8 +9,8 @@ import grpc
 
 from proto import lid_pb2, lid_pb2_grpc
 
-HOST = "172.21.0.2"
-PORT = 50052
+HOST = "localhost"
+PORT = 40053
 
 CHUNK_DURATION_MS = 100
 SAMPLE_RATE = 16000
