@@ -14,9 +14,9 @@ from proto import lid_pb2, lid_pb2_grpc
 HOST = "localhost"
 PORT = 40053
 
-AUDIO_FILEPATH = "examples/test_audio.wav"
+AUDIO_FILEPATH = "examples/short_chinese.wav"
 SAMPLE_RATE = 16000
-CHUNK_DURATION = 0.5
+CHUNK_DURATION = 5
 
 def stream_audio(
     stub: lid_pb2_grpc.LanguageIdentifierStub, 

@@ -1,1 +1,3 @@
-weights/*
+src/tmp
+src/weights
+tests/tmp

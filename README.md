@@ -1,6 +1,6 @@
-# ctranslate-deploy
+# lid-grpc-service
 
-This is a repository to serve an Language Identifcation (LID) Service via gRPC. The model being served is trained on ATC data. The model has been transformed, optimised and binarised with CTranslate2[https://github.com/OpenNMT/CTranslate2] for more efficient inference.
+This is a repository to serve an Language Identifcation (LID) Service via gRPC. The model being served is SpeechBrain's model that is pretrained on the CommonLanguage dataset (45 languages).
 
 ## Setup
 
@@ -12,20 +12,15 @@ git clone https://github.com/beetee17/lid-grpc-service.git
 
 ### 2. Download the weights
 
-Please download the model files from the [huggingface repository](https://huggingface.co/distil-whisper/distil-large-v3#faster-whisper). You should rename the contents such that the directory looks like:
+This commit should come with the weights folder included, as the SpeechBrain model is not large. However, you can also download the model files from the [huggingface repository](https://huggingface.co/speechbrain/lang-id-commonlanguage_ecapa). Organise the contents such that the directory looks like:
 
 ```sh
-ctranslate_deploy
+lid-grpc-service
 |-- weights
-|    |-- blobs
-|    |-- refs
-|    |-- snapshots
-|    |    |-- model
-|    |    |    |-- config.json
-|    |    |    |-- model.bin
-|    |    |    |-- preprocessor_config.json
-|    |    |    |-- tokenizer.json
-|    |    |    |-- vocabulary.json
+|    |-- classifier.ckpt
+|    |-- embedding_model.ckpt
+|    |-- hyperparams.yaml
+|    |-- label_encoder.ckpt
 |-- proto
 |-- src
 |-- tests
@@ -34,7 +29,8 @@ ctranslate_deploy
 ```
 
 ### 3. ENV
-Set-up the .env file (`main.env`) using the template at `.env_template`. There are 2 main environment variables that to be in:
+
+Set-up `main.env`. There are 2 main environment variables that to be in:
 
 ```sh
 GRPC_PORT="XXXXX" # the port to be exposed and used for the service
@@ -69,7 +65,7 @@ python -m grpc_tools.protoc -I . --python_out=./tests --pyi_out=./tests --grpc_p
 While the server is up, try sending requests by playing around with `tests/sample_request.py`. 
 
 ```sh
-python -m venv ~/lid_client_env
+python3 -m venv ~/lid_client_env
 source ~/lid_client_env/bin/activate
 pip install -r client_requirements.txt
 cd tests
@@ -82,7 +78,7 @@ You can also stream audio via the microphone with `tests/stream_request.py`.
 
 You may need to install additional dependencies to run the test scripts.
 
-Make sure to verify the hostname and port number in the python script match that of the docker container:
+If for some reason localhost connection does not work, try verifying that the hostname and port number in the python test script matches those of the docker container:
 
 ```sh
 docker ps
