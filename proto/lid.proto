@@ -9,6 +9,5 @@ message LanguageIdentificationRequest {
 }
 
 message LanguageIdentificationResponse {
-    string language_code = 1;
-    float confidence = 2;
+    map<string, float> language_probabilities = 1;
 }

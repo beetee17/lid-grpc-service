@@ -22,7 +22,7 @@ def stream_audio(
     stub: lid_pb2_grpc.LanguageIdentifierStub, 
     audio_file: str, 
     chunk_duration: float, 
-    simulate: bool = True
+    simulate: bool = False
 ):
     total_duration = librosa.get_duration(filename=audio_file)
     start_time = 0.0
@@ -30,13 +30,20 @@ def stream_audio(
     while start_time < total_duration:
         iteration_start_time = time.time()
         
-        end_time = min(start_time + chunk_duration, total_duration)
+        # end_time = min(start_time + chunk_duration, total_duration)
+        # audio_data, sample_rate = librosa.load(
+        #     audio_file, 
+        #     sr=SAMPLE_RATE, 
+        #     offset=start_time, 
+        #     duration=end_time-start_time
+        # )
         audio_data, sample_rate = librosa.load(
             audio_file, 
             sr=SAMPLE_RATE, 
             offset=start_time, 
-            duration=end_time-start_time
+            duration=CHUNK_DURATION
         )
+
 
         with io.BytesIO() as temp_file:
             sf.write(
@@ -52,14 +59,15 @@ def stream_audio(
         request = lid_pb2.LanguageIdentificationRequest(audio_data=audio_data)
         response = stub.identify_language(request)
 
-        lang_code = response.language_code
-        confidence = response.confidence
-
-        logging.info("Detected language '%s' with probability %f" % (lang_code, confidence))
+        logging.info("{} -> {}\n{}\n".format(
+            start_time, start_time + CHUNK_DURATION, response.language_probabilities['zh']
+            )
+        )
             
-        start_time = end_time
+        # start_time = end_time
+        start_time += 0.5
         
-        if simulate: time.sleep(max(0, (iteration_start_time + chunk_duration) - time.time()))
+        if simulate: time.sleep(max(0, (iteration_start_time + 1) - time.time()))
         
 if __name__ == "__main__":
     logging.basicConfig(

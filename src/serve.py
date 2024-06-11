@@ -39,23 +39,22 @@ class LanguageIdentifier(lid_pb2_grpc.LanguageIdentifierServicer):
                 os.mkdir("tmp")
                 
                 signal = self.model.load_audio(f.name, savedir="tmp")
-                prediction =  self.model.classify_batch(signal)
-
-                confidence = prediction[1][0].item()
-                lang_code = prediction[3][0]
-                lang_code = SPEECHBRAIN_TO_WHISPER.get(lang_code, lang_code)
-                
+                probabilities, score, index, label =  self.model.classify_batch(signal)
                 logging.info("Detected language '{}' with probability {}".format(
-                        lang_code, confidence
+                        SPEECHBRAIN_TO_WHISPER.get(label[0], label[0]), score[0].item()
                     )
                 )
                 infer_end = perf_counter()
         
                 logging.info("Inference elapsed time: %s", infer_end - infer_start)
-                
                 return lid_pb2.LanguageIdentificationResponse(
-                    language_code=lang_code,
-                    confidence=confidence
+                    language_probabilities={ 
+                            SPEECHBRAIN_TO_WHISPER.get(
+                                self.model.hparams.label_encoder.decode_torch(np.array([i]))[0],
+                                self.model.hparams.label_encoder.decode_torch(np.array([i]))[0]
+                            ) : probabilities[0][i]
+                            for i in range(len(probabilities[0]))
+                    } 
                 )
                 
         except Exception as e:

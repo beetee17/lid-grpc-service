@@ -14,17 +14,21 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fproto/lid.proto\"3\n\x1dLanguageIdentificationRequest\x12\x12\n\naudio_data\x18\x01 \x01(\x0c\"K\n\x1eLanguageIdentificationResponse\x12\x15\n\rlanguage_code\x18\x01 \x01(\t\x12\x12\n\nconfidence\x18\x02 \x01(\x02\x32l\n\x12LanguageIdentifier\x12V\n\x11identify_language\x12\x1e.LanguageIdentificationRequest\x1a\x1f.LanguageIdentificationResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fproto/lid.proto\"3\n\x1dLanguageIdentificationRequest\x12\x12\n\naudio_data\x18\x01 \x01(\x0c\"\xba\x01\n\x1eLanguageIdentificationResponse\x12Z\n\x16language_probabilities\x18\x01 \x03(\x0b\x32:.LanguageIdentificationResponse.LanguageProbabilitiesEntry\x1a<\n\x1aLanguageProbabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\x32l\n\x12LanguageIdentifier\x12V\n\x11identify_language\x12\x1e.LanguageIdentificationRequest\x1a\x1f.LanguageIdentificationResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'proto.lid_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE_LANGUAGEPROBABILITIESENTRY']._options = None
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE_LANGUAGEPROBABILITIESENTRY']._serialized_options = b'8\001'
   _globals['_LANGUAGEIDENTIFICATIONREQUEST']._serialized_start=19
   _globals['_LANGUAGEIDENTIFICATIONREQUEST']._serialized_end=70
-  _globals['_LANGUAGEIDENTIFICATIONRESPONSE']._serialized_start=72
-  _globals['_LANGUAGEIDENTIFICATIONRESPONSE']._serialized_end=147
-  _globals['_LANGUAGEIDENTIFIER']._serialized_start=149
-  _globals['_LANGUAGEIDENTIFIER']._serialized_end=257
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE']._serialized_start=73
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE']._serialized_end=259
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE_LANGUAGEPROBABILITIESENTRY']._serialized_start=199
+  _globals['_LANGUAGEIDENTIFICATIONRESPONSE_LANGUAGEPROBABILITIESENTRY']._serialized_end=259
+  _globals['_LANGUAGEIDENTIFIER']._serialized_start=261
+  _globals['_LANGUAGEIDENTIFIER']._serialized_end=369
 # @@protoc_insertion_point(module_scope)
